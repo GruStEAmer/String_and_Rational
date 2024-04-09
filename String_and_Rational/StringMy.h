@@ -17,8 +17,10 @@ public:
 	void create();
 
 	const char operator[](int char_num);
+	StringMy operator+(const StringMy& s) const;
 	void operator=(const StringMy& s);
 	void operator=(const char* c);
+	void operator+=(const StringMy& s);
 	friend std::ostream& operator<<(std::ostream& os,const StringMy& s);
 	
 };

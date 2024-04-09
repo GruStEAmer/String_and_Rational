@@ -39,6 +39,17 @@ int StringMy::size() {
 const char StringMy::operator[](int char_num) {
 	return  (char_num < _size_ - 1)?string[char_num]:static_cast<char>(178);
 }
+StringMy StringMy::operator+(const StringMy& s) const {
+	StringMy result(_size_ + s._size_ - 2);
+	int k = 0;
+	for (; k < _size_ - 1; k++) result.string[k] = string[k];
+	for (int i = 0; i < s._size_; i++, k++) result.string[k] = s.string[i];
+
+	return result;
+}
+void StringMy::operator+=(const StringMy& s) {
+	*this = *this + s;
+}
 void StringMy::operator=(const StringMy& s){
 	_size_ = s._size_;
 
