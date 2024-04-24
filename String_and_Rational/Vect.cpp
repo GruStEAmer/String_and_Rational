@@ -42,7 +42,21 @@ Vect& Vect::operator=(const Vect& next_v) {
 	for (int i = 0; i < sz; i++) v[i] = next_v.v[i];
 	return *this;
 }
-
+Vect Vect::operator+(const Vect& next_v) const {
+	Vect result;
+	if (sz >= next_v.sz) {
+		result = *this;
+		for (int i = 0; i < next_v.sz; i++) result.v[i] += next_v.v[i];
+	}
+	else {
+		result = next_v;
+		for (int i = 0; i < sz; i++) result.v[i] += v[i];
+	}
+	return result;
+}
+void Vect::operator+=(const Vect& next_v) {
+	*this = *this + next_v;
+}
 //friend operators
 std::ostream& operator<<(std::ostream& os, const Vect& vec) {
 	for (int i = 0; i < vec.sz; i++) os << vec.v[i] << " ";

@@ -18,6 +18,8 @@ public:
 //operators
 	double& operator[](const int i);
 	Vect& operator=(const Vect& next_v);
+	Vect operator+(const Vect& next_v) const;
+	void operator+=(const Vect& next_v);
 //friend operators
 	friend std::ostream& operator<<(std::ostream& os, const Vect& vec);
 	friend std::istream& operator>>(std::istream& is, Vect& vec);

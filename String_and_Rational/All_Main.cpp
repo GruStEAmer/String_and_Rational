@@ -7,6 +7,6 @@ int main() {
 	Vect v2(2);
 	std::cin >> v2;
 	Vect ans;
-	ans = v;
+	ans = v + v2;
 	std::cout << ans;
 }
