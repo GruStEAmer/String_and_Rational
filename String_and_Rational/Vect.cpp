@@ -27,7 +27,50 @@ Vect::~Vect() {
 
 //fun
 int Vect::size() { return sz; }
+double Vect::modul() {
+	int m = 0;
+	for (int i = 0; i < sz; i++) {
+		m += v[i] * v[i];
+	}
+	return pow(m,0.5);
+}
+void Vect::push_back(double d) {
+	Vect reserve(*this);
+	delete[] v;
+	sz++;
 
+	v = new double[sz];
+	v[sz - 1] = d;
+	for (int i = 0; i < sz - 1; i++) v[i] = reserve.v[i];
+
+}
+void Vect::resize(int nsz) {
+	Vect res(*this);
+
+	delete[] v;
+	sz = nsz;
+
+	if (res.sz > sz) {
+		v = new double[sz];
+		for (int i = 0; i < sz; i++) v[i] = res.v[i];
+	}
+	else {
+		int i = 0;
+		v = new double[sz];
+		for (; i < res.sz; i++) v[i] = res.v[i];
+		for (; i < sz; i++) v[i] = 0.0;
+	}
+}
+bool Vect::pop_back() {
+	if (sz == 0) return false;
+
+	Vect reserve(*this);
+	delete[] v;
+	sz--;
+	v = new double[sz];
+	for (int i = 0; i < sz;i++) v[i] = reserve.v[i];
+	return true;
+}
 //operators
 double& Vect::operator[](int i) {
 	return v[i];
@@ -56,6 +99,37 @@ Vect Vect::operator+(const Vect& next_v) const {
 }
 void Vect::operator+=(const Vect& next_v) {
 	*this = *this + next_v;
+}
+Vect Vect::operator*(const double d)const {
+	Vect result(*this);
+	for (int i = 0; i < result.sz; i++) result.v[i] *= d;
+	return result;
+}
+Vect Vect::operator++() {
+	for (int i = 0; i < sz; i++) v[i]++;
+	return *this;
+}
+const Vect Vect::operator++(int) {
+	Vect res(*this);
+	++*this;
+	return res;
+}
+double Vect::operator*(const Vect& vec) const {
+	double result = 0;
+	for (int i = 0; i < sz; i++) {
+		result += v[i] * vec.v[i];
+	}
+	return result;
+}
+bool Vect::operator==(const Vect& vec) const {
+	if(sz != vec.sz) return false;
+	for (int i = 0; i < sz; i++) {
+		if (v[i] != vec.v[i]) return false;
+	}
+	return true;
+}
+bool Vect::operator!=(const Vect& vec) const {
+	return !(*this == vec);
 }
 //friend operators
 std::ostream& operator<<(std::ostream& os, const Vect& vec) {
